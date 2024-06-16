@@ -1,0 +1,18 @@
+{
+  "name": "image-converter-tool",
+  "version": "1.0.0",
+  "description": "A tool to convert image formats with optional compression and metadata stripping",
+  "main": "index.js",
+  "bin": {
+    "image-converter": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "sharp": "^0.33.4"
+  }
+}
