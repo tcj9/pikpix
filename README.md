@@ -1,4 +1,4 @@
-# Image Converter
+# PikPix
 
 A command-line tool to convert image formats with optional compression and metadata stripping, built with Node.js, Sharp and Commander.
 
@@ -16,7 +16,7 @@ A command-line tool to convert image formats with optional compression and metad
 To install the tool globally, run:
 
 ```bash
-npm install -g image-converter
+npm install -g pikpix
 ```
 
 ### Local Installation for Development
@@ -24,8 +24,8 @@ npm install -g image-converter
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/tcj9/image-converter.git
-cd image-converter
+git clone https://github.com/tcj9/pikpix.git
+cd pikpix
 npm install
 ```
 
@@ -36,7 +36,7 @@ npm install
 To convert a single image file, use the following command:
 
 ```bash
-image-converter --input <input_file> --output <output_file> --format <format> [--compression <level>] [--strip]
+pikpix --input <input_file> --output <output_file> --format <format> [--compression <level>] [--strip]
 ```
 
 ### Bulk Conversion (Directory)
@@ -44,7 +44,7 @@ image-converter --input <input_file> --output <output_file> --format <format> [-
 To convert all images in a directory, use the following command:
 
 ```bash
-image-converter --input <input_directory> --output <output_directory> --format <format> [--compression <level>] [--strip]
+pikpix --input <input_directory> --output <output_directory> --format <format> [--compression <level>] [--strip]
 ```
 
 ### Options
@@ -62,7 +62,7 @@ image-converter --input <input_directory> --output <output_directory> --format <
 Convert a single image from PNG to JPEG with compression level 80 and strip metadata:
 
 ```bash
-image-converter --input image.png --output image.jpg --format jpg --compression 80 --strip
+pikpix --input image.png --output image.jpg --format jpg --compression 80 --strip
 ```
 
 #### Bulk Conversion
@@ -70,7 +70,7 @@ image-converter --input image.png --output image.jpg --format jpg --compression 
 Convert all WebP images in the `input_directory` to JPEG format with compression level 80 and strip metadata:
 
 ```bash
-image-converter --input input_directory --output output_directory --format jpg --compression 80 --strip
+pikpix --input input_directory --output output_directory --format jpg --compression 80 --strip
 ```
 
 ## Development
@@ -80,8 +80,8 @@ image-converter --input input_directory --output output_directory --format jpg -
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/tcj9/image-converter.git
-cd image-converter
+git clone https://github.com/tcj9/pikpix.git
+cd pikpix
 npm install
 ```
 
@@ -93,7 +93,7 @@ Link the package locally to test it:
 npm link
 ```
 
-You can now use the `image-converter` command from anywhere in your terminal.
+You can now use the `pikpix` command from anywhere in your terminal.
 
 ### Unlink After Testing
 
@@ -121,7 +121,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Issues
 
-If you encounter any issues, please [open an issue](https://github.com/tcj9/image-converter/issues).
+If you encounter any issues, please [open an issue](https://github.com/tcj9/pikpix/issues).
 
 ## Acknowledgements
 
