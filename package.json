@@ -26,7 +26,7 @@
     "png",
     "tiff"
   ],
-  "author": "tcj9",
+  "author": "TCJ9 (https://github.com/tcj9)",
   "license": "MIT",
   "dependencies": {
     "sharp": "^0.29.3",
