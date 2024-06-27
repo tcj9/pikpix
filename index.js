@@ -78,9 +78,9 @@ const processImage = (inputFile, outputFile) => {
     });
 };
 
-ensureDirectoryExists(outputPath);
+if (fs.lstatSync(inputPath).isDirectory()) {
+  ensureDirectoryExists(outputPath);
 
-if (isDirectory) {
   fs.readdir(inputPath, (err, files) => {
     if (err) {
       console.error("Error reading input directory:", err);
@@ -99,8 +99,11 @@ if (isDirectory) {
     });
   });
 } else {
+  const outputDir = path.dirname(outputPath);
+  ensureDirectoryExists(outputDir);
+
   const outputFile = generateUniqueFileName(
-    path.dirname(outputPath),
+    outputDir,
     path.parse(outputPath).name,
     format
   );
