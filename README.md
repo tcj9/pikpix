@@ -1,13 +1,14 @@
 # PikPix
 
-A command-line tool to convert image formats with optional compression and metadata stripping, built with Node.js, Sharp and Commander.
+A command-line tool to convert image formats with optional compression, built with Node.js and Sharp.
 
 ## Features
 
 - Convert single image files or bulk convert all images in a directory.
 - Support for various image formats including JPEG, PNG, WebP, TIFF, etc.
 - Optional compression to reduce file size.
-- Option to strip metadata from images.
+- Metadata is stripped by default to lower file size.
+- Ensures unique file names to prevent conflicts.
 
 ## Installation
 
@@ -36,7 +37,7 @@ npm install
 To convert a single image file, use the following command:
 
 ```bash
-pikpix --input <input_file> --output <output_file> --format <format> [--compression <level>] [--strip]
+pikpix --input <input_file> --output <output_file> --format <format> [--compression <level>]
 ```
 
 ### Bulk Conversion (Directory)
@@ -44,7 +45,7 @@ pikpix --input <input_file> --output <output_file> --format <format> [--compress
 To convert all images in a directory, use the following command:
 
 ```bash
-pikpix --input <input_directory> --output <output_directory> --format <format> [--compression <level>] [--strip]
+pikpix --input <input_directory> --output <output_directory> --format <format> [--compression <level>]
 ```
 
 ### Options
@@ -53,24 +54,23 @@ pikpix --input <input_directory> --output <output_directory> --format <format> [
 - `-o, --output <path>`: Output image file or directory.
 - `-f, --format <format>`: Output format (jpeg, png, webp, tiff, etc.).
 - `-c, --compression <level>`: Compression level (0-100). Optional.
-- `-s, --strip`: Strip metadata. Optional.
 
 ### Examples
 
 #### Single File Conversion
 
-Convert a single image from PNG to JPEG with compression level 80 and strip metadata:
+Convert a single image from PNG to JPEG with compression level 80:
 
 ```bash
-pikpix --input image.png --output image.jpg --format jpg --compression 80 --strip
+pikpix --input image.png --output image.jpg --format jpg --compression 80
 ```
 
 #### Bulk Conversion
 
-Convert all WebP images in the `input_directory` to JPEG format with compression level 80 and strip metadata:
+Convert all WebP images in the `input_directory` to JPEG format with compression level 80:
 
 ```bash
-pikpix --input input_directory --output output_directory --format jpg --compression 80 --strip
+pikpix --input input_directory --output output_directory --format jpg --compression 80
 ```
 
 ## Development
