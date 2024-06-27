@@ -4,10 +4,12 @@ const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
 const { Command } = require("commander");
+const packageJson = require("./package.json");
 
 const program = new Command();
 
 program
+  .version(packageJson.version, "-v, --version", "Output the current version")
   .description("Convert image(s) with optional compression.")
   .option("-i, --input <path>", "Input image file or directory")
   .option("-o, --output <path>", "Output image file or directory")
