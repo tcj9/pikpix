@@ -1,6 +1,6 @@
 {
   "name": "pikpix",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A command-line tool to convert image formats with optional compression and metadata stripping, built with Node.js, Sharp and Commander.",
   "main": "index.js",
   "bin": {
@@ -29,7 +29,7 @@
   "author": "TCJ9 (https://github.com/tcj9)",
   "license": "MIT",
   "dependencies": {
-    "sharp": "^0.29.3",
-    "commander": "^9.0.0"
+    "commander": "^9.0.0",
+    "sharp": "^0.29.3"
   }
 }
