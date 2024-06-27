@@ -54,6 +54,7 @@ pikpix --input <input_directory> --output <output_directory> --format <format> [
 - `-o, --output <path>`: Output image file or directory.
 - `-f, --format <format>`: Output format (jpeg, png, webp, tiff, etc.).
 - `-c, --compression <level>`: Compression level (0-100). Optional.
+- `-v, --version`: Output the current version.
 
 ### Examples
 
