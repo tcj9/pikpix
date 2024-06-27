@@ -33,7 +33,25 @@ const outputPath = path.resolve(options.output);
 const format = options.format;
 const compression = options.compression;
 
-const isDirectory = fs.lstatSync(inputPath).isDirectory();
+const ensureDirectoryExists = (dirPath) => {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+};
+
+const generateUniqueFileName = (dir, baseName, ext) => {
+  let fileName = `${baseName}.${ext}`;
+  let filePath = path.join(dir, fileName);
+  let counter = 1;
+
+  while (fs.existsSync(filePath)) {
+    fileName = `${baseName}_${counter}.${ext}`;
+    filePath = path.join(dir, fileName);
+    counter++;
+  }
+
+  return filePath;
+};
 
 const processImage = (inputFile, outputFile) => {
   let image = sharp(inputFile).toFormat(format);
@@ -60,11 +78,9 @@ const processImage = (inputFile, outputFile) => {
     });
 };
 
-if (isDirectory) {
-  if (!fs.existsSync(outputPath)) {
-    fs.mkdirSync(outputPath);
-  }
+ensureDirectoryExists(outputPath);
 
+if (isDirectory) {
   fs.readdir(inputPath, (err, files) => {
     if (err) {
       console.error("Error reading input directory:", err);
@@ -73,14 +89,20 @@ if (isDirectory) {
 
     files.forEach((file) => {
       const inputFile = path.join(inputPath, file);
-      const outputFile = path.join(
+      const outputFile = generateUniqueFileName(
         outputPath,
-        `${path.parse(file).name}.${format}`
+        path.parse(file).name,
+        format
       );
 
       processImage(inputFile, outputFile);
     });
   });
 } else {
-  processImage(inputPath, outputPath);
+  const outputFile = generateUniqueFileName(
+    path.dirname(outputPath),
+    path.parse(outputPath).name,
+    format
+  );
+  processImage(inputPath, outputFile);
 }
