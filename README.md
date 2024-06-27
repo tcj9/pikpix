@@ -1,6 +1,6 @@
 # PikPix
 
-A command-line tool to convert image formats with optional compression, built with Node.js and Sharp.
+A command-line tool to convert image formats with optional compression, built with Node.js, Sharp and Commander.
 
 ## Features
 
