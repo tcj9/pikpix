@@ -41,6 +41,10 @@ program
   .option(
     "--autoOptimize",
     "Automatically apply a set of predefined optimizations"
+  )
+  .option(
+    "--preserve-aspect-ratio",
+    "Preserve aspect ratio when resizing the image"
   );
 
 program.parse(process.argv);
@@ -145,12 +149,13 @@ const processImage = async (inputFile, outputFile) => {
           "Invalid resize dimensions. Please provide dimensions in the format WIDTHxHEIGHT or WIDTHXHEIGHT."
         );
       }
-      image = image.resize({
+      const resizeOptions = {
         width: resize[0],
         height: resize[1],
-        fit: sharp.fit.inside,
+        fit: options.preserveAspectRatio ? sharp.fit.inside : sharp.fit.fill,
         background: { r: 255, g: 255, b: 255, alpha: 1 },
-      });
+      };
+      image = image.resize(resizeOptions);
     }
 
     if (compression !== undefined) {
