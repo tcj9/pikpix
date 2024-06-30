@@ -37,6 +37,10 @@ program
     "--blur <sigma>",
     "Apply blur with the specified sigma value",
     parseFloat
+  )
+  .option(
+    "--autoOptimize",
+    "Automatically apply a set of predefined optimizations"
   );
 
 program.parse(process.argv);
@@ -56,7 +60,6 @@ let format = options.format.toLowerCase();
 const compression = options.compression;
 const resize = options.resize ? options.resize.split(/[xX]/).map(Number) : null;
 
-// Normalize jpg to jpeg
 if (format === "jpg") {
   format = "jpeg";
 }
@@ -101,6 +104,11 @@ const generateUniqueFileName = (dir, baseName, ext) => {
   }
 
   return filePath;
+};
+
+const applyOptimizations = (image) => {
+  image = image.sharpen().median();
+  return image;
 };
 
 const processImage = async (inputFile, outputFile) => {
@@ -178,25 +186,29 @@ const processImage = async (inputFile, outputFile) => {
       });
     }
 
-    if (options.sharpen) {
-      image = image.sharpen();
-    }
-
-    if (options.denoise) {
-      image = image.median();
-    }
-
-    if (options.grayscale) {
-      image = image.grayscale();
-    }
-
-    if (options.blur) {
-      if (isNaN(options.blur) || options.blur <= 0) {
-        throw new Error(
-          "Invalid blur sigma value. Please provide a positive number."
-        );
+    if (options.autoOptimize) {
+      image = applyOptimizations(image);
+    } else {
+      if (options.sharpen) {
+        image = image.sharpen();
       }
-      image = image.blur(options.blur);
+
+      if (options.denoise) {
+        image = image.median();
+      }
+
+      if (options.grayscale) {
+        image = image.grayscale();
+      }
+
+      if (options.blur) {
+        if (isNaN(options.blur) || options.blur <= 0) {
+          throw new Error(
+            "Invalid blur sigma value. Please provide a positive number."
+          );
+        }
+        image = image.blur(options.blur);
+      }
     }
 
     await image.toFormat(format).toFile(outputFile);
