@@ -7,7 +7,7 @@
     "pikpix": "./index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,9 @@
     "commander": "^9.0.0",
     "file-type": "^16.5.3",
     "sharp": "^0.29.3"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.22.0",
+    "jest": "^29.7.0"
   }
 }
