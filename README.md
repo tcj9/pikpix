@@ -1,77 +1,77 @@
 # PikPix
 
-A command-line tool to convert image formats with optional compression, built with Node.js, Sharp and Commander.
+PikPix is a command-line tool to convert and optimize image formats with optional compression and resizing. It is built with Node.js, Sharp, and Commander, providing a powerful and flexible solution for image processing.
 
 ## Features
 
-- Convert single image files or bulk convert all images in a directory.
-- Support for various image formats including JPEG, PNG, WebP, TIFF, etc.
-- Optional compression to reduce file size.
-- Metadata is stripped by default to lower file size.
-- Ensures unique file names to prevent conflicts.
+- **Image Conversion**: Supports various formats including `heic`, `heif`, `avif`, `jpeg`, `jpg`, `png`, `raw`, `tiff`, `tif`, `webp`, `gif`, `jp2`, `jpx`, `j2k`, `j2c`, and `svg`.
+- **Compression Level**: Specify compression level (quality) for formats like `jpeg`, `jpg`, `png`, `webp`, `tiff`, `heif`, `heic`, and `avif`.
+- **Resizing**: Resize images to specified dimensions without cropping.
+- **Handling Local and Remote Images**: Input images from local file paths, URLs, and directories.
+- **Directory Processing**: Process all images in a specified directory.
+- **Unique Output File Names**: Ensures output file names are unique to avoid overwriting.
+- **Optimization Options**: Various optimization features including flattening, sharpening, denoising, converting to grayscale, and applying blur.
+- **Error Handling**: Comprehensive error handling with clear error messages.
+- **Version Output**: Displays the current version of the tool.
 
 ## Installation
 
-### Global Installation
-
-To install the tool globally, run:
+To install PikPix, use npm:
 
 ```bash
 npm install -g pikpix
 ```
 
-### Local Installation for Development
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/tcj9/pikpix.git
-cd pikpix
-npm install
-```
-
 ## Usage
 
-### Single File Conversion
-
-To convert a single image file, use the following command:
-
 ```bash
-pikpix --input <input_file> --output <output_file> --format <format> [--compression <level>]
-```
-
-### Bulk Conversion (Directory)
-
-To convert all images in a directory, use the following command:
-
-```bash
-pikpix --input <input_directory> --output <output_directory> --format <format> [--compression <level>]
+pikpix -i <input> -o <output> -f <format> [options]
 ```
 
 ### Options
 
-- `-i, --input <path>`: Input image file or directory.
-- `-o, --output <path>`: Output image file or directory.
-- `-f, --format <format>`: Output format (jpeg, png, webp, tiff, etc.).
-- `-c, --compression <level>`: Compression level (0-100). Optional.
 - `-v, --version`: Output the current version.
+- `-i, --input <path>`: Input image file, URL, or directory.
+- `-o, --output <path>`: Output image file or directory.
+- `-f, --format <format>`: Output format (heic, heif, avif, jpeg, jpg, png, raw, tiff, tif, webp, gif, jp2, jpx, j2k, j2c, svg).
+- `-c, --compression <level>`: Compression level (0-100).
+- `-r, --resize <dimensions>`: Resize dimensions in format WIDTHxHEIGHT or WIDTHXHEIGHT.
+- `--flatten [color]`: Flatten the image and fill the background with the specified color (default: white).
+- `--sharpen`: Apply sharpening to the image.
+- `--denoise`: Apply denoising to the image.
+- `--grayscale`: Convert the image to grayscale.
+- `--blur <sigma>`: Apply blur with the specified sigma value.
 
-### Examples
+## Examples
 
-#### Single File Conversion
-
-Convert a single image from PNG to JPEG with compression level 80:
+### Convert a Single Image
 
 ```bash
-pikpix --input image.png --output image.jpg --format jpg --compression 80
+pikpix -i input.jpg -o output.png -f png
 ```
 
-#### Bulk Conversion
-
-Convert all WebP images in the `input_directory` to JPEG format with compression level 80:
+### Convert and Compress an Image
 
 ```bash
-pikpix --input input_directory --output output_directory --format jpg --compression 80
+pikpix -i input.jpg -o output.webp -f webp -c 80
+```
+
+### Resize an Image
+
+```bash
+pikpix -i input.jpg -o output.png -f png -r 800x600
+```
+
+### Optimize an Image
+
+```bash
+pikpix -i input.jpg -o output.png -f png --sharpen --grayscale
+```
+
+### Process a Directory of Images
+
+```bash
+pikpix -i ./input-directory -o ./output-directory -f webp -c 80
 ```
 
 ## Development
@@ -118,7 +118,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Author
+
+[TCJ9](https://github.com/tcj9)
 
 ## Issues
 
@@ -128,3 +132,5 @@ If you encounter any issues, please [open an issue](https://github.com/tcj9/pikp
 
 - [Sharp](https://github.com/lovell/sharp) - The high-performance Node.js image processing library.
 - [Commander](https://github.com/tj/commander.js) - The complete solution for Node.js command-line interfaces.
+- [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and Node.js.
+- [File-Type](https://github.com/sindresorhus/file-type) - Detect the file type of a Buffer/Uint8Array/ArrayBuffer.

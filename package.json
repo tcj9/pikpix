@@ -1,7 +1,7 @@
 {
   "name": "pikpix",
-  "version": "1.2.0",
-  "description": "A command-line tool to convert image formats with optional compression and metadata stripping, built with Node.js, Sharp and Commander.",
+  "version": "1.3.0",
+  "description": "A command-line tool to convert and optimize image formats with optional compression and resizing.",
   "main": "index.js",
   "bin": {
     "pikpix": "./index.js"
@@ -18,18 +18,27 @@
     "converter",
     "sharp",
     "compression",
+    "optimize",
     "metadata",
     "cli",
     "command-line",
     "webp",
     "jpeg",
     "png",
-    "tiff"
+    "tiff",
+    "gif",
+    "bmp",
+    "svg",
+    "heif",
+    "heic",
+    "resize"
   ],
   "author": "TCJ9 (https://github.com/tcj9)",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "commander": "^9.0.0",
+    "file-type": "^16.5.3",
     "sharp": "^0.29.3"
   }
 }
