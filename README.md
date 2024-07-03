@@ -1,11 +1,17 @@
 # PikPix
 
-PikPix is a command-line tool to convert and optimize image formats with optional compression and resizing. It is built with Node.js, Sharp, and Commander, providing a powerful and flexible solution for image processing.
+PikPix is a versatile command-line tool designed to convert and optimize image formats with optional compression, resizing and optimizations. To learn more about the technologies used to build PikPix, refer to the Acknowledgements section at the bottom of this README.
 
 ## Features
 
 - **Image Conversion**: Supports various formats including `heic`, `heif`, `avif`, `jpeg`, `jpg`, `png`, `raw`, `tiff`, `tif`, `webp`, `gif`, `jp2`, `jpx`, `j2k`, `j2c`, and `svg`.
 - **Compression Level**: Specify compression level (quality) for formats like `jpeg`, `jpg`, `png`, `webp`, `tiff`, `heif`, `heic`, and `avif`.
+- **Advanced Compression**:
+  - **Lossless Compression**: Apply lossless compression for supported formats.
+  - **Progressive JPEG**: Apply progressive compression for JPEG images.
+  - **Chroma Subsampling**: Specify chroma subsampling rate (e.g., 4:2:0, 4:4:4).
+  - **Adaptive Quantization**: Apply adaptive quantization for better compression.
+  - **Region of Interest (ROI) Compression**: Apply compression to specified regions of the image.
 - **Resizing**: Resize images to specified dimensions without cropping.
 - **Handling Local and Remote Images**: Input images from local file paths, URLs, and directories.
 - **Directory Processing**: Process all images in a specified directory.
@@ -41,6 +47,11 @@ pikpix -i <input> -o <output> -f <format> [options]
 - `--denoise`: Apply denoising to the image.
 - `--grayscale`: Convert the image to grayscale.
 - `--blur <sigma>`: Apply blur with the specified sigma value.
+- `--lossless`: Apply lossless compression if supported by the format.
+- `--progressive`: Apply progressive compression for JPEG images.
+- `--subsample <rate>`: Apply chroma subsampling rate (e.g., 4:2:0, 4:4:4).
+- `--adaptive-quantization`: Apply adaptive quantization for better compression.
+- `--roi-compression <regions>`: Apply region of interest (ROI) compression to specified regions.
 
 ## Examples
 
@@ -134,3 +145,4 @@ If you encounter any issues, please [open an issue](https://github.com/tcj9/pikp
 - [Commander](https://github.com/tj/commander.js) - The complete solution for Node.js command-line interfaces.
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and Node.js.
 - [File-Type](https://github.com/sindresorhus/file-type) - Detect the file type of a Buffer/Uint8Array/ArrayBuffer.
+- [Progress](https://github.com/visionmedia/node-progress) - Flexible ascii progress bar for Node.js.
