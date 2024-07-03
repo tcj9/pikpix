@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Import necessary modules
 const sharp = require("sharp");
 const axios = require("axios");
