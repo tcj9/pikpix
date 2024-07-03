@@ -6,6 +6,7 @@ const fs = require("fs");
 const path = require("path");
 const { Command } = require("commander");
 const fileType = require("file-type");
+const ProgressBar = require("progress");
 const packageJson = require("./package.json");
 
 const program = new Command();
@@ -115,7 +116,7 @@ const applyOptimizations = (image) => {
   return image;
 };
 
-const processImage = async (inputFile, outputFile) => {
+const processImage = async (inputFile, outputFile, bar) => {
   try {
     let imageBuffer;
 
@@ -218,34 +219,34 @@ const processImage = async (inputFile, outputFile) => {
 
     await image.toFormat(format).toFile(outputFile);
     console.log(`Converted ${inputFile} to ${outputFile} as ${format}`);
+    bar.tick(); // Update progress bar after processing the image
   } catch (error) {
     console.error(`Error processing image ${inputFile}:`, error.message);
   }
 };
 
-const processDirectory = (inputDir, outputDir) => {
+const processDirectory = async (inputDir, outputDir) => {
   try {
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
 
-    fs.readdir(inputDir, (err, files) => {
-      if (err) {
-        console.error("Error reading input directory:", err.message);
-        process.exit(1);
-      }
-
-      files.forEach((file) => {
-        const inputFile = path.join(inputDir, file);
-        const outputFile = generateUniqueFileName(
-          outputDir,
-          path.parse(file).name,
-          format
-        );
-
-        processImage(inputFile, outputFile);
-      });
+    const files = fs.readdirSync(inputDir);
+    const bar = new ProgressBar("Processing images [:bar] :percent :etas", {
+      total: files.length,
+      width: 40,
     });
+
+    for (const file of files) {
+      const inputFile = path.join(inputDir, file);
+      const outputFile = generateUniqueFileName(
+        outputDir,
+        path.parse(file).name,
+        format
+      );
+
+      await processImage(inputFile, outputFile, bar);
+    }
   } catch (error) {
     console.error(`Error processing directory ${inputDir}:`, error.message);
   }
@@ -263,16 +264,20 @@ const run = async () => {
     if (fs.existsSync(inputPath)) {
       const isDirectory = fs.lstatSync(inputPath).isDirectory();
       if (isDirectory) {
-        processDirectory(inputPath, outputPath);
+        await processDirectory(inputPath, outputPath);
       } else {
         const outputDir = path.dirname(outputPath);
         ensureDirectoryExists(outputDir);
+        const bar = new ProgressBar("Processing image [:bar] :percent :etas", {
+          total: 1,
+          width: 40,
+        });
         const outputFile = generateUniqueFileName(
           outputDir,
           path.parse(outputPath).name,
           format
         );
-        await processImage(inputPath, outputFile);
+        await processImage(inputPath, outputFile, bar);
       }
     } else if (
       inputPath.startsWith("http://") ||
@@ -280,12 +285,16 @@ const run = async () => {
     ) {
       const outputDir = path.dirname(outputPath);
       ensureDirectoryExists(outputDir);
+      const bar = new ProgressBar("Processing image [:bar] :percent :etas", {
+        total: 1,
+        width: 40,
+      });
       const outputFile = generateUniqueFileName(
         outputDir,
         path.parse(outputPath).name,
         format
       );
-      await processImage(inputPath, outputFile);
+      await processImage(inputPath, outputFile, bar);
     } else {
       console.error("Error: Input path does not exist.");
       process.exit(1);

@@ -150,7 +150,6 @@ describe("PikPix CLI", () => {
         `node ./index.js -i ${inputPath} -o ${outputPath} -f jpeg`
       );
     } catch (error) {
-      console.log("🚀 ~ test ~ stderr:", error.stderr);
       expect(error.stderr).toContain("Input path does not exist");
     }
   });
