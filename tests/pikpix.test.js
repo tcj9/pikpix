@@ -153,4 +153,22 @@ describe("PikPix CLI", () => {
       expect(error.stderr).toContain("Input path does not exist");
     }
   });
+
+  // New test for advanced compression options
+  test("should apply advanced compression options", async () => {
+    const inputPath = path.join(__dirname, "fixtures", "input.jpeg");
+    const outputPath = path.join(
+      __dirname,
+      "fixtures",
+      "output_advanced_compression.jpeg"
+    );
+    await runCommand(
+      `node ./index.js -i ${inputPath} -o ${outputPath} -f jpeg --progressive --subsample 4:2:0 --adaptive-quantization`
+    );
+    const outputFileExists = fs.existsSync(outputPath);
+    expect(outputFileExists).toBe(true);
+    const { format } = await sharp(outputPath).metadata();
+    expect(format).toBe("jpeg");
+    fs.unlinkSync(outputPath);
+  });
 });

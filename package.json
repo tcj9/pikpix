@@ -39,6 +39,7 @@
     "axios": "^0.21.1",
     "commander": "^9.0.0",
     "file-type": "^16.5.3",
+    "progress": "^2.0.3",
     "sharp": "^0.29.3"
   },
   "devDependencies": {
