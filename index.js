@@ -220,12 +220,12 @@ const processImage = async (inputFile, outputFile, bar) => {
         } else if (format === "heif" || format === "heic") {
           image = image.heif({ quality: compression, lossless: true });
         }
-      } else {
+      } else if (compression !== undefined) {
         console.warn(
           `Warning: Lossless compression is not supported for format ${format}.`
         );
       }
-    } else {
+    } else if (compression !== undefined) {
       // Apply specified compression options
       if (["jpeg", "jpg", "avif", "heif", "heic", "webp"].includes(format)) {
         if (format === "jpeg" || format === "jpg") {
